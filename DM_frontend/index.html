@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <meta charset="UTF-8">
+        <title>Генераторы задач</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+        <link  href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                jax: ["input/TeX", "output/HTML-CSS"],
+                extensions: ["tex2jax.js"],
+                "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
+                tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
+                TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } } },
+                messageStyle: "none"
+            });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+        
+        <div id="root">
+            <header>
+                <h1>Генераторы задач</h1>
+            </header>
+            <div id="content">
+                <div id="settings">
+                    <select id="generators">
+                            <option value="-1">Выберите генератор...</option>
+                    </select>
+                    <input id="seed-field" type="number" placeholder="Введите сид">
+                    <button id="generate" onclick="getAndRenderSolution()">Сгенерировать</button>
+                    <p id="error-message"></p>
+                </div>
+                <div id="results">
+                    <div id="solution">
+                        <div id="problem"></div>
+                        <div id="answer">
+                            <button id="show-answer" onclick="showOrHideAnswer()">Показать ответ</button>
+                            <p id="answer-text"></p>
+                        </div>
+                    </div>
+                    <div id="progress-bar"></div>
+                </div>
+                
+            </div>
+        </div>
+        <script src="js/api.js"></script>
+        <script src="js/render-gens.js"></script>
+        <script src="js/render-solution.js"></script>
+        <script src="js/page.js"></script>
+    </body>
+</html>
