@@ -3,7 +3,7 @@
  * @param {array of numbers} generators список генераторов, каждый содержит айди и название
  */
 function renderGens(generators) {
-    var select = document.getElementById('generators');
+    var select = document.getElementById('generators-select');
     
     for (var i = 0; i < generators.length; i++) {
         var option = document.createElement('option');
@@ -17,11 +17,17 @@ function renderGens(generators) {
  * Получает генераторы с сервера и отображает
  */
 function getAndRenderGens() {
-    getGenerators( function(result) {
-        if (result.status == 'ok') {
-            renderGens(result.generators);
+    getGenerators( 
+        function(result) {
+            if (result.status == 'ok') {
+                renderGens(result.generators);
+            }
+        },
+        function(error) {
+            setErrorState('Невозможно загрузить генераторы, проверьте соединение');
+            console.log('Request failed, ' + error);
         }
-    })
+    )
 }
 
 getAndRenderGens();

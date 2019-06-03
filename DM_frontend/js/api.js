@@ -17,34 +17,35 @@ function getUrl(url, id, seed) {
 
 /**
  * Отправляет пост-запрос на url и обрабатывает результат в переданном callback
- * @param {string}   url      адрес запроса 
- * @param {function} callback каллбэк для обработки результата
+ * @param {string}   url        адрес запроса 
+ * @param {function} onSuccess  каллбэк для обработки результата
+ * @param {function} onError    функция для обработки ошибки 
  */
-function fetchPost(url, callback) {
+function fetchPost(url, onSuccess, onError) {
     fetch(url, { method: 'POST' })
         .then( function(response) {
             return response.json();
         })
-        .then(callback)
-        .catch( function(error) {
-            console.log('Request failed, ' + error);
-        });
+        .then(onSuccess)
+        .catch(onError);
 }
 
 /**
  * Отправляет запрос на получение генераторов
- * @param {function} callback каллбэк для обработки результата
+ * @param {function} onSuccess  каллбэк для обработки результата
+ * @param {function} onError    функция для обработки ошибки 
  */
-function getGenerators(callback) {
-    return fetchPost(getUrl('get_generators'), callback);
+function getGenerators(onSuccess, onError) {
+    return fetchPost(getUrl('get_generators'), onSuccess, onError);
 }
 
 /**
  * Отправляет запрос на получение конкретной задачи по id и seed
- * @param   {number}   id       айди генератора задачи
- * @param   {number}   seed     инициализатор ядра случайных чисел для генератора
- * @param   {function} callback каллбэк для обработки результата
+ * @param   {number}   id         айди генератора задачи
+ * @param   {number}   seed       инициализатор ядра случайных чисел для генератора
+ * @param {function}   onSuccess  каллбэк для обработки результата
+ * @param {function}   onError    функция для обработки ошибки 
  */
-function getTask(id, seed, callback) {
-    return fetchPost(getUrl('get_task', id, seed), callback);
+function getTask(id, seed, onSuccess, onError) {
+    return fetchPost(getUrl('get_task', id, seed), onSuccess, onError);
 }

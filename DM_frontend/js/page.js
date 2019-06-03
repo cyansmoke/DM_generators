@@ -1,26 +1,40 @@
 /**
- * Устанавливает выравнивае элементов по центру и отображает загрузку
+ * Скрывает правую панель
  */
-function showProgressBar() {
-    document.getElementById('progress-bar').style.display = 'block';
-    document.getElementById('results').style.alignItems = 'center';
-    document.getElementById('solution').style.display = 'none';
+function setHiddenState() {
+    document.getElementById('content').setAttribute('state', 'hidden');
+    document.getElementById('generate-button').disabled = false;
 }
 
 /**
- * Устаанавливает выравнивает по левой стороне и скрывает загрузку
+ * Показывает индикатор загрузки в правой панели, блокирует кнопку
  */
-function hideProgressBar() {
-    hideAnswer();
-    document.getElementById('progress-bar').style.display = 'none';
-    document.getElementById('results').style.alignItems = 'flex-start';
-    document.getElementById('solution').style.display = 'flex';
-    document.getElementById('solution').style.flexDirection = 'column';
+function setLoadingState() {
+    document.getElementById('content').setAttribute('state', 'loading');
+    document.getElementById('generate-button').disabled = true;
 }
 
 /**
- * Если ответ отображается, то скрыть и наоборот
+ * Показывает задачу в правой панели
  */
+function setReadyState() {
+    document.getElementById('content').setAttribute('state', 'ready');
+    document.getElementById('generate-button').disabled = false;
+}
+
+/**
+ * Выводит ошибку с заданным текстом, останавивает загрузку
+ * @param {string} message текст ошибки для вывода 
+ */
+function setErrorState(message) {
+    document.getElementById('content').setAttribute('state', 'error');
+    document.getElementById('generate-button').disabled = false;
+
+    var errorMessage = document.getElementById('error-message');
+    while (errorMessage.firstChild) errorMessage.removeChild(errorMessage.firstChild);
+    errorMessage.appendChild( document.createTextNode(message) ); // Add new
+}
+
 function showOrHideAnswer() {
     var answer = document.getElementById('answer-text');
     if (answer.style.display == 'inline') {
@@ -31,32 +45,9 @@ function showOrHideAnswer() {
 }
 
 function showAnswer() {
-    var answer = document.getElementById('answer-text');
-    answer.style.display = 'inline';
+    document.getElementById('answer-text').style.display = 'inline';
 }
 
 function hideAnswer() {
-    var answer = document.getElementById('answer-text');
-    answer.style.display = 'none';
-}
-
-/**
- * Выводит ошибку с заданным текстом, останавивает показ загрузки
- * @param {string} message текст ошибки для вывода 
- */
-function showError(message) {
-    document.getElementById('progress-bar').style.display = 'none';
-    var errorMessage = document.getElementById('error-message');
-    clearError();
-    errorMessage.style.display = 'inline';
-    errorMessage.appendChild( document.createTextNode(message) ); // Add new
-}
-
-/**
- * Очищает поле ошибки
- */
-function clearError() {
-    var errorMessage = document.getElementById('error-message');
-    errorMessage.style.display = 'none';
-    while (errorMessage.firstChild) errorMessage.removeChild(errorMessage.firstChild);
+    document.getElementById('answer-text').style.display = 'none';
 }

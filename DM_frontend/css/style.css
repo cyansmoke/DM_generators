@@ -51,7 +51,7 @@ header > h1 {
     font-size: 16px;
 }
 
-#generators {
+#generators-select {
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
@@ -62,12 +62,12 @@ header > h1 {
     background-size: .65em auto, 100%;
 }
 
-#generators:focus, #seed-field:focus {
+#generators-select:focus, #seed-field:focus {
     border-color: #2293F2; 
     outline: none;
 }
 
-#generators option {
+#generators-select option {
     font-weight:normal;
 }
 
@@ -75,8 +75,9 @@ header > h1 {
     border: 1px solid #A9A9A9;
 }
 
-#generate {
+#generate-button {
     background: #2293F2;
+    pointer-events: all;
     border: none;
     color: #fafafa;
     text-transform: uppercase;
@@ -85,11 +86,12 @@ header > h1 {
     transition: background .2s ease-in-out;
 }
 
-#generate:hover {
+#generate-button:hover {
     background: #0F79E6;
 }
 
-#generate:disabled {
+#generate-button:disabled {
+    cursor: not-allowed;
     background: #bbb;
 }
 
@@ -100,7 +102,11 @@ header > h1 {
     color:#d11;
 }
 
-#results {
+#content[state="error"] #error-message {
+    display: inline;
+}
+
+#solution-panel {
     width: 400px;
     height: 100%;
     margin-left: 16px;
@@ -110,10 +116,33 @@ header > h1 {
     justify-content: center;
 }
 
-#solution {
+#content[state="ready"] #solution-panel{
+    justify-content: flex-start;
+}
+
+#solution-view {
     display: none;
     padding: 16px;
     border-left: #999 solid 2px;
+}
+
+#content[state="ready"] #solution-view {
+    display: flex;
+    flex-direction: column;
+}
+
+#progress-bar {
+    display: none;
+    border: 3px solid;
+    width: 60px;
+    height: 60px;
+    border-color: #2293F2 transparent transparent;
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+}
+
+#content[state="loading"] #progress-bar {
+    display: block;
 }
 
 #problem {
@@ -145,16 +174,6 @@ header > h1 {
 
 #answer-text {
     display: none;
-}
-
-#progress-bar {
-    display: none;
-    border: 3px solid;
-    width: 60px;
-    height: 60px;
-    border-color: #2293F2 transparent transparent;
-    border-radius: 50%;
-    animation: spin 2s linear infinite;
 }
 
 @keyframes spin {

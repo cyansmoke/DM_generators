@@ -23,17 +23,17 @@
             <header>
                 <h1>Генераторы задач</h1>
             </header>
-            <div id="content">
+            <div id="content"  state="hidden">
                 <div id="settings">
-                    <select id="generators">
+                    <select id="generators-select">
                             <option value="-1">Выберите генератор...</option>
                     </select>
                     <input id="seed-field" type="number" placeholder="Введите сид">
-                    <button id="generate" onclick="getAndRenderSolution()">Сгенерировать</button>
+                    <button id="generate-button" onclick="getAndRenderSolution()">Сгенерировать</button>
                     <p id="error-message"></p>
                 </div>
-                <div id="results">
-                    <div id="solution">
+                <div id="solution-panel">
+                    <div id="solution-view">
                         <div id="problem"></div>
                         <div id="answer">
                             <button id="show-answer" onclick="showOrHideAnswer()">Показать ответ</button>
