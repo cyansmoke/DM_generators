@@ -109,7 +109,6 @@ header > h1 {
 #solution-panel {
     width: 400px;
     height: 100%;
-    margin-left: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -117,7 +116,8 @@ header > h1 {
 }
 
 #content[state="ready"] #solution-panel{
-    justify-content: flex-start;
+    margin-left: 16px;
+    align-items: flex-start;
 }
 
 #solution-view {
@@ -170,10 +170,6 @@ header > h1 {
 
 #show-answer:hover {
     border-color: #555;
-}
-
-#answer-text {
-    display: none;
 }
 
 @keyframes spin {

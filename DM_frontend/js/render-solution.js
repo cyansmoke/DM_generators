@@ -5,7 +5,6 @@
 function renderSolution(solution) {
     var problem = document.getElementById('problem');
     while (problem.firstChild) problem.removeChild(problem.firstChild); // Delete old problem text
-
     var problemText = solution.problem.split('\n'); // Problem may consist of few string, we must show it correctly
     for (var i = 0; i < problemText.length; i++) {
         var p = document.createElement('p');
@@ -15,8 +14,7 @@ function renderSolution(solution) {
     }
 
     var answer = document.getElementById('answer-text');
-    while (answer.firstChild)  answer.removeChild(answer.firstChild); // Delete old answer
-    answer.appendChild( document.createTextNode(solution.answer) ); // Add new
+    answer.textContent = solution.answer;
     updateMathJaxInElement(answer);
 }
 

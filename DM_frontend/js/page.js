@@ -29,25 +29,10 @@ function setReadyState() {
 function setErrorState(message) {
     document.getElementById('content').setAttribute('state', 'error');
     document.getElementById('generate-button').disabled = false;
-
-    var errorMessage = document.getElementById('error-message');
-    while (errorMessage.firstChild) errorMessage.removeChild(errorMessage.firstChild);
-    errorMessage.appendChild( document.createTextNode(message) ); // Add new
+    document.getElementById('error-message').textContent = message;
 }
 
 function showOrHideAnswer() {
     var answer = document.getElementById('answer-text');
-    if (answer.style.display == 'inline') {
-        hideAnswer();
-    } else {
-        showAnswer();
-    }
-}
-
-function showAnswer() {
-    document.getElementById('answer-text').style.display = 'inline';
-}
-
-function hideAnswer() {
-    document.getElementById('answer-text').style.display = 'none';
+    answer.hidden = !answer.hidden;
 }
