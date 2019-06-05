@@ -1,18 +1,13 @@
 * {
-    font-family: 'Roboto', sans-serif; 
+    font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
-    margin: 0px;
-}
-
-#root {
-    height: 100vh;
-    width: 100%;
+    margin: 0;
 }
 
 header {
     background: #f8f8f8;
     align-items: center;
-    height: 64px;
+    height: 60px;
     display: flex;
     flex-direction: row;
     align-content: space-between;
@@ -20,33 +15,36 @@ header {
     width: 100%;
 }
 
-header > h1 {
+header>h1 {
     color: #999999;
     text-indent: 24px;
     font-size: 16px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    text-transform: uppercase;
 }
 
 #content {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    transform: translate(-50%, -50%);
+    max-width: 1500px;
+    height: 80vh;
+    margin: 16px;
+    display: grid;
+    grid-gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
 }
 
 #settings {
-    margin: 16px;
+    padding: 36px;
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
 }
 
-#settings > * {
+#settings>* {
     margin: 8px;
     height: 45px;
-    width: 300px;
+    width: 55%;
     padding: 8px;
     font-size: 16px;
 }
@@ -62,13 +60,14 @@ header > h1 {
     background-size: .65em auto, 100%;
 }
 
-#generators-select:focus, #seed-field:focus {
-    border-color: #2293F2; 
+#generators-select:focus,
+#seed-field:focus {
+    border-color: #2293F2;
     outline: none;
 }
 
 #generators-select option {
-    font-weight:normal;
+    font-weight: normal;
 }
 
 #seed-field {
@@ -82,7 +81,7 @@ header > h1 {
     color: #fafafa;
     text-transform: uppercase;
     font-size: 0.9em;
-    letter-spacing: 2px; 
+    letter-spacing: 2px;
     transition: background .2s ease-in-out;
 }
 
@@ -99,7 +98,7 @@ header > h1 {
     display: none;
     margin: 0px;
     font-size: 14px;
-    color:#d11;
+    color: #d11;
 }
 
 #content[state="error"] #error-message {
@@ -107,15 +106,14 @@ header > h1 {
 }
 
 #solution-panel {
-    width: 400px;
-    height: 100%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-#content[state="ready"] #solution-panel{
+#content[state="ready"] #solution-panel {
     margin-left: 16px;
     align-items: flex-start;
 }
@@ -129,6 +127,61 @@ header > h1 {
 #content[state="ready"] #solution-view {
     display: flex;
     flex-direction: column;
+    animation: fadeInLeft 0.3s linear 1;
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translate3d(-25%, 0, 0);
+        transform: translate3d(-25%, 0, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@media screen and (max-width: 580px) {
+    #content {
+        grid-gap: 0;
+        grid-template-columns: repeat(1, 1fr);
+    }
+    #settings {
+        padding: 16px;
+        align-items: center;
+        justify-content: center;
+    }
+    #settings>* {
+        width: 80%;
+    }
+    #solution-panel {
+        width: 100%;
+    }
+    #content[state="ready"] #solution-panel {
+        margin: 0 auto;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    #content[state="ready"] #solution-view {
+        display: flex;
+        flex-direction: column;
+        animation: fadeInBottom 0.3s linear 1;
+        justify-content: center;
+    }
+    @keyframes fadeInBottom {
+        from {
+            opacity: 0;
+            transform: translate3d(0, 25%, 0);
+            transform: translate3d(0, 25%, 0);
+        }
+        to {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+    }
 }
 
 #progress-bar {
@@ -164,7 +217,7 @@ header > h1 {
     border: 1px solid #A9A9A9;
     font-size: 14px;
     padding: 8px;
-    margin-bottom: 16px; 
+    margin-bottom: 16px;
     transition: border-color .2s ease-in-out;
 }
 
@@ -173,5 +226,7 @@ header > h1 {
 }
 
 @keyframes spin {
-    100%{transform: rotate(360deg);}
+    100% {
+        transform: rotate(360deg);
+    }
 }

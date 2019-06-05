@@ -20,6 +20,7 @@ function setLoadingState() {
 function setReadyState() {
     document.getElementById('content').setAttribute('state', 'ready');
     document.getElementById('generate-button').disabled = false;
+    document.getElementById('answer-text').hidden = true;
 }
 
 /**
