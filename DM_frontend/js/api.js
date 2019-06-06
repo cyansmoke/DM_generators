@@ -23,7 +23,7 @@ function getUrl(url, id, seed) {
  */
 function fetchPost(url, onSuccess, onError) {
     fetch(url, { method: 'POST' })
-        .then( function(response) {
+        .then(function(response) {
             return response.json();
         })
         .then(onSuccess)

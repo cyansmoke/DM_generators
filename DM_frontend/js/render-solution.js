@@ -8,7 +8,7 @@ function renderSolution(solution) {
     var problemText = solution.problem.split('\n'); // Problem may consist of few string, we must show it correctly
     for (var i = 0; i < problemText.length; i++) {
         var p = document.createElement('p');
-        p.appendChild(document.createTextNode(problemText[i]) )
+        p.appendChild(document.createTextNode(problemText[i]))
         problem.appendChild(p);
         updateMathJaxInElement(problem.lastChild);
     }
@@ -23,7 +23,7 @@ function renderSolution(solution) {
  * @param {object} element DOM-элемент для обновления
  */
 function updateMathJaxInElement(element) {
-    MathJax.Hub.Queue( ['Typeset', MathJax.Hub, element] );
+    MathJax.Hub.Queue(['Typeset', MathJax.Hub, element]);
 }
 
 /**
@@ -35,7 +35,7 @@ var lastParams = {
 }
 
 function validate(id, seed) {
-    if (id == -1) {
+    if (id === -1) {
         setErrorState('Выберите генератор из списка');
         return false;
     }
@@ -47,7 +47,7 @@ function validate(id, seed) {
         setErrorState('Введите сид');
         return false;
     }
-    if (id == lastParams.id && seed == lastParams.seed) {
+    if (id === lastParams.id && seed === lastParams.seed) {
         setReadyState();
         return false;
     }
@@ -69,9 +69,9 @@ function getAndRenderSolution() {
     lastParams.id = id;
     lastParams.seed = seed;
 
-    getTask(id, seed, 
+    getTask(id, seed,
         function(result) {
-            if (result.status == 'ok') {
+            if (result.status === 'ok') {
                 renderSolution(result.solution);
                 setReadyState();
             }

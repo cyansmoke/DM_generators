@@ -8,8 +8,8 @@ function renderGens(generators) {
     for (var i = 0; i < generators.length; i++) {
         var option = document.createElement('option');
         option.textContent = generators[i].title;
-        option.value = generators[i].id; 
-        select.appendChild(option); 
+        option.value = generators[i].id;
+        select.appendChild(option);
     }
 }
 
@@ -17,9 +17,9 @@ function renderGens(generators) {
  * Получает генераторы с сервера и отображает
  */
 function getAndRenderGens() {
-    getGenerators( 
+    getGenerators(
         function(result) {
-            if (result.status == 'ok') {
+            if (result.status === 'ok') {
                 renderGens(result.generators);
             }
         },
