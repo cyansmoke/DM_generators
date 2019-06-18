@@ -2,73 +2,86 @@
  * Отображает условие и ответ задачи на странице
  * @param {object} solution содержит условие задачи problem и ответ к ней answer
  */
-function renderSolution(solution) {
-    var problem = document.getElementById('problem');
-    while (problem.firstChild) problem.removeChild(problem.firstChild); // Delete old problem text
-    var problemText = solution.problem.split('\n'); // Problem may consist of few string, we must show it correctly
-    for (var i = 0; i < problemText.length; i++) {
-        var p = document.createElement('p');
-        p.appendChild(document.createTextNode(problemText[i]))
-        problem.appendChild(p);
-        updateMathJaxInElement(problem.lastChild);
-    }
+const renderSolution = solution => {
+     // Удаляем предыдущий текст задачи
+    while (elements.problemText.firstChild) {
+        elements.problemText.removeChild(problem.firstChild);
+    } 
 
-    var answer = document.getElementById('answer-text');
-    answer.textContent = solution.answer;
-    updateMathJaxInElement(answer);
+    // Если текст состоит из нескольких  строк, сосдаем несколько абзцев
+    const problemText = solution.problem.split('\n');
+    problemText.forEach(str => {
+        var p = document.createElement('p');
+        p.appendChild(document.createTextNode(str))
+        problem.appendChild(p);
+        updateMathJaxInElement(elements.problemText.lastChild);
+    });
+
+    elements.answerText.textContent = solution.answer;
+    updateMathJaxInElement(elements.answerText);
 }
 
 /**
  * Обновляет LaTeX формулы в DOM-элементе
  * @param {object} element DOM-элемент для обновления
  */
-function updateMathJaxInElement(element) {
+const updateMathJaxInElement = element => {
     MathJax.Hub.Queue(['Typeset', MathJax.Hub, element]);
 }
 
 /**
- * Айди и сид последнего запроса, чтобы не обновлять его при одинаковых параметрах
+ * Создаем функцию валидации, которая через замыкание хранит последние запросы
  */
-var lastParams = {
-    id: 0,
-    seed: 0
+const createValidate = () => {
+
+    //Айди и сид последнего запроса, чтобы не повторять его при одинаковых параметрах
+    let lastId = 0;
+    let lastSeed = 0;
+
+    return (id, seed) => {
+        let isValid = true;
+
+        // Три сценария для вывода ошибки пользователю
+        const errorMessage =
+            (id === -1) ? 'Выберите генератор из списка':
+            (seed.toString().length > 12) ? 'Слишком длинный сид':
+            (!seed) ? 'Введите сид' : '';
+
+
+        if (errorMessage) {
+            // Если есть текст ошибки, выводим ее
+            setErrorState(errorMessage);
+            isValid = false
+        } else if (id === lastId && seed === lastSeed) {
+            // Если текущие запросы равны предыдущим, то прерываем загрузку и оставляем предыдущую задачу
+            setReadyState();
+            isValid = false;
+        }
+
+        // Если валидация прошла успешно, записываем текущие параметры как предыдущие
+        if (isValid) {
+            lastId = id;
+            lastSeed = seed;
+        }
+
+        return isValid;
+    }
 }
 
-function validate(id, seed) {
-    if (id === -1) {
-        setErrorState('Выберите генератор из списка');
-        return false;
-    }
-    if (seed.toString().length > 12) {
-        setErrorState('Слишком длинный сид');
-        return false;
-    }
-    if (!seed) {
-        setErrorState('Введите сид');
-        return false;
-    }
-    if (id === lastParams.id && seed === lastParams.seed) {
-        setReadyState();
-        return false;
-    }
-    return true;
-}
+const validate = createValidate();
 
 /**
  * Получает задачу с сервера и отображает
  */
-function getAndRenderSolution() {
+const getAndRenderSolution = () => {
     setLoadingState();
 
-    var select = document.getElementById('generators-select');
-    var id = +select[select.selectedIndex].value;
-    var seed = +document.getElementById('seed-field').value;
+    const select = elements.gensSelect;
+    const id = select[select.selectedIndex].value;
+    const seed = elements.seedField.value;
 
     if (!validate(id, seed)) return;
-
-    lastParams.id = id;
-    lastParams.seed = seed;
-
+    
     getTask(id, seed,
         function(result) {
             if (result.status === 'ok') {
@@ -82,3 +95,5 @@ function getAndRenderSolution() {
         }
     )
 }
+
+elements.generateBtn.addEventListener('click', getAndRenderSolution);

@@ -10,8 +10,6 @@ header {
     height: 60px;
     display: flex;
     flex-direction: row;
-    align-content: space-between;
-    margin-bottom: 16px;
     width: 100%;
 }
 
@@ -32,6 +30,9 @@ header>h1 {
     grid-gap: 16px;
     grid-template-columns: repeat(2, 1fr);
 }
+
+
+/* ==== Панель для ввода данных начинается ====  */
 
 #settings {
     padding: 36px;
@@ -105,6 +106,28 @@ header>h1 {
     display: inline;
 }
 
+/* Для мобильных устройств */
+@media screen and (max-width: 580px) {
+    #content {
+        grid-gap: 0;
+        grid-template-columns: repeat(1, 1fr);
+    }
+    #settings {
+        padding: 16px;
+        align-items: center;
+        justify-content: center;
+    }
+    #settings>* {
+        width: 80%;
+    }
+    
+}
+
+/* ==== Панель для ввода данных заканчивается ==== */
+
+
+/* ==== Панель для отображения полученной задачи  начинается ==== */
+
 #solution-panel {
     width: 60%;
     display: flex;
@@ -130,6 +153,7 @@ header>h1 {
     animation: fadeInLeft 0.3s linear 1;
 }
 
+/* Анимация при появлении задачи */
 @keyframes fadeInLeft {
     from {
         opacity: 0;
@@ -143,19 +167,8 @@ header>h1 {
     }
 }
 
+/* Для мобильных устройств */
 @media screen and (max-width: 580px) {
-    #content {
-        grid-gap: 0;
-        grid-template-columns: repeat(1, 1fr);
-    }
-    #settings {
-        padding: 16px;
-        align-items: center;
-        justify-content: center;
-    }
-    #settings>* {
-        width: 80%;
-    }
     #solution-panel {
         width: 100%;
     }
@@ -225,8 +238,11 @@ header>h1 {
     border-color: #555;
 }
 
+/* Анимация вращения загрузки */
 @keyframes spin {
     100% {
         transform: rotate(360deg);
     }
 }
+
+/* ==== Панель для отображения полученной задачи заканчивается ====*/

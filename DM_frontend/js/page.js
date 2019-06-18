@@ -1,26 +1,40 @@
+const elements = {
+    mainContent:    document.getElementById('content'),
+
+    gensSelect:     document.getElementById('generators-select'),
+    seedField:      document.getElementById('seed-field'),
+    generateBtn:    document.getElementById('generate-button'),
+    errorText:      document.getElementById('error-message'),
+
+    problemText:    document.getElementById('problem'),
+    answerText:     document.getElementById('answer-text'),
+    answerBtn:      document.getElementById('show-answer')
+}
+
+
 /**
  * Скрывает правую панель
  */
 function setHiddenState() {
-    document.getElementById('content').setAttribute('state', 'hidden');
-    document.getElementById('generate-button').disabled = false;
+    elements.mainContent.setAttribute('state', 'hidden');
+    elements.generateBtn.disabled = false;
 }
 
 /**
  * Показывает индикатор загрузки в правой панели, блокирует кнопку
  */
 function setLoadingState() {
-    document.getElementById('content').setAttribute('state', 'loading');
-    document.getElementById('generate-button').disabled = true;
+    elements.mainContent.setAttribute('state', 'loading');
+    elements.generateBtn.disabled = true;
 }
 
 /**
  * Показывает задачу в правой панели
  */
 function setReadyState() {
-    document.getElementById('content').setAttribute('state', 'ready');
-    document.getElementById('generate-button').disabled = false;
-    document.getElementById('answer-text').hidden = true;
+    elements.mainContent.setAttribute('state', 'ready');
+    elements.generateBtn.disabled = false;
+    elements.answerText.hidden = true;
 }
 
 /**
@@ -28,12 +42,13 @@ function setReadyState() {
  * @param {string} message текст ошибки для вывода 
  */
 function setErrorState(message) {
-    document.getElementById('content').setAttribute('state', 'error');
-    document.getElementById('generate-button').disabled = false;
-    document.getElementById('error-message').textContent = message;
+    elements.mainContent.setAttribute('state', 'error');
+    elements.generateBtn.disabled = false;
+    elements.errorText.textContent = message;
 }
 
-function showOrHideAnswer() {
-    var answer = document.getElementById('answer-text');
-    answer.hidden = !answer.hidden;
+function toggleAnswerState() {
+    elements.answerText.hidden = !elements.answerText.hidden;
 }
+
+elements.answerBtn.addEventListener('click', toggleAnswerState);

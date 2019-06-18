@@ -1,50 +1,61 @@
 <!DOCTYPE html>
 <html lang="eng">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Генераторы задач</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-</head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link href="css/style.css" rel="stylesheet" />
+  </head>
 
-<body>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({ jax: ["input/TeX", "output/HTML-CSS"], extensions: ["tex2jax.js"], "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }, tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"]
-        ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" }, TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } } }, messageStyle: "none" });
-    </script>
+  <body>
+
+    <!-- Конфигурация MathJax для отображения формул -->
+    <script src="js/mj-config.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
 
     <header>
-        <h1>Генераторы задач</h1>
+      <h1>Генераторы задач</h1>
     </header>
-    <div id="content" state="hidden">
-        <div id="settings">
-            <select id="generators-select">
-                        <option value="-1">Выберите генератор...</option>
-                </select>
-            <input id="seed-field" type="number" placeholder="Введите сид">
-            <button id="generate-button" onclick="getAndRenderSolution()">Сгенерировать</button>
-            <p id="error-message"></p>
-        </div>
-        <div id="solution-panel">
-            <div id="solution-view">
-                <div id="problem"></div>
-                <div id="answer">
-                    <button id="show-answer" onclick="showOrHideAnswer()">Показать ответ</button>
-                    <p id="answer-text" hidden></p>
-                </div>
-            </div>
-            <div id="progress-bar"></div>
-        </div>
 
-    </div>
+    <main id="content" state="hidden">
+
+      <!-- Панель для ввода данных -->
+      <section id="settings">
+        <select id="generators-select">
+          <option value="-1">Выберите генератор...</option>
+        </select>
+        <input id="seed-field" type="number" placeholder="Введите сид" />
+        <button id="generate-button">
+          Сгенерировать
+        </button>
+        <p id="error-message"></p>
+      </section>
+
+      <!-- Панель для отображения полученной задачи и загрузки-->
+      <section id="solution-panel">
+        <!-- Отображается, если задача успешно загружена -->
+        <div id="solution-view">
+          <div id="problem"></div>
+          <div id="answer">
+            <button id="show-answer"">
+              Показать ответ
+            </button>
+            <p id="answer-text" hidden></p>
+          </div>
+        </div>
+        <!-- Отображается при загрузке задачи с сервера -->
+        <div id="progress-bar"></div>
+      </section>
+    </main>
+
     <script src="js/api.js"></script>
-    <script src="js/render-gens.js"></script>
-    <script src="js/render-solution.js"></script>
     <script src="js/page.js"></script>
-</body>
-
+    <script src="js/render-gens.js"></script>
+    <script src="js/render-solution.js" ></script>
+  </body>
 </html>
