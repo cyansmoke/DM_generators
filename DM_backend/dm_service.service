@@ -1,0 +1,10 @@
+[Unit]
+Description=DM Service
+
+[Service]
+ExecStart= java -jar server_dm-1.2.jar [path/to/generators/with/slash/at/last]
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
