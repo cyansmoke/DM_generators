@@ -22,6 +22,25 @@ class GeneratorController {
     fun start() {
         initGetGeneratorsRequest()
         initGetTaskRequest()
+        Spark.options(
+            "/*"
+        ) { request, response ->
+            val accessControlRequestHeaders: String = request
+                .headers("Access-Control-Request-Headers")
+            response.header(
+                "Access-Control-Allow-Headers",
+                accessControlRequestHeaders
+            )
+            val accessControlRequestMethod: String = request
+                .headers("Access-Control-Request-Method")
+            response.header(
+                "Access-Control-Allow-Methods",
+                accessControlRequestMethod
+            )
+            "OK"
+        }
+
+        Spark.before("/*") { _, response -> response.header("Access-Control-Allow-Origin", "*") }
     }
 
     private fun initGetGeneratorsRequest() {

@@ -14,15 +14,18 @@ import java.io.InputStreamReader
 // seed - ядро
 // postSeedCommand - команды, которые вводятся после ядра(можно передать null, когда их нет)
 
-private fun generate(command: String, fileName: String, preSeedCommand: String?, seed: Long, postSeedCommand: String?) =
-    BufferedReader(
+private fun generate(command: String, fileName: String, preSeedCommand: String?, seed: Long, postSeedCommand: String?): String {
+    val fullCommand = "$command $path$fileName ${preSeedCommand ?: ""} $seed ${postSeedCommand ?: ""}"
+    val completeCommand = BufferedReader(
         InputStreamReader(
             Runtime.getRuntime()
                 .exec(
-                    "$command $path$fileName ${preSeedCommand ?: ""} $seed ${postSeedCommand ?: ""}"
+                    fullCommand
                 ).inputStream
         )
     ).readText()
+    return completeCommand.replace("\n", "")
+}
 
 fun getSolution(id: Int, seed: Long) = when (id) {
     1 -> {
